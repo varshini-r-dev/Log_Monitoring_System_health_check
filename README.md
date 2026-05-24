@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Log Monitoring System Health Check
 
 ## Overview
@@ -103,3 +104,7 @@ Common issues to verify:
 ## Notes
 
 This README is a starter document for the project. Update it with exact setup steps, commands, dependencies, and environment-specific details as the implementation is finalized.
+=======
+# Log_Monitoring_System_health_check
+A Python-based system health monitoring tool that tracks CPU, memory, and disk usage with logging.
+>>>>>>> 2288c57f920800ffa6ef22fb87d6ed2dab45c0ec
