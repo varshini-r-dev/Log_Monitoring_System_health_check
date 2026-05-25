@@ -1,35 +1,49 @@
 import psutil
 import datetime
 import time
+import os
 
-def get_cpu_usage():
-    return psutil.cpu_percent(interval=1)
+LOG_DIR = "logs"
+LOG_FILE = os.path.join(LOG_DIR, "system_health.log")
+os.makedirs(LOG_DIR, exist_ok=True)
 
-def get_memory_usage():
-    memory = psutil.virtual_memory()
-    return memory.percent
+ALERT_THRESHOLD = 70
 
-def get_disk_usage():
-    disk_before = psutil.disk_io_counters()
-    time.sleep(1)
-    disk_after = psutil.disk_io_counters()
-    
-    read_bytes = disk_after.read_bytes - disk_before.read_bytes
-    write_bytes = disk_after.write_bytes - disk_before.write_bytes
-    
-    read_mb = round(read_bytes / 1024 / 1024, 2)
-    write_mb = round(write_bytes / 1024 / 1024, 2)
-    
-    return read_mb, write_mb
+def get_stats():
+    cpu = psutil.cpu_percent(interval=1)
+    memory = psutil.virtual_memory().percent
+    disk = psutil.disk_usage('/').percent
+    return cpu, memory, disk
 
-def display_stats():
-    print("="*40)
-    print(f"System Health Check - {datetime.datetime.now()}")
-    print("="*40)       
-    print(f"CPU Usage: {get_cpu_usage()}%")
-    print(f"Memory Usage: {get_memory_usage()}%")           
-    read_mb, write_mb = get_disk_usage()
-    print(f"Disk Read Speed  : {read_mb} MB/s")
-    print(f"Disk Write Speed : {write_mb} MB/s")
+def check_alerts(cpu, memory, disk):
+    alerts = []
+    if cpu > ALERT_THRESHOLD:
+        alerts.append(f"[ALERT] CPU is HIGH: {cpu}%")
+    if memory > ALERT_THRESHOLD:
+        alerts.append(f"[ALERT] Memory is HIGH: {memory}%")
+    if disk > ALERT_THRESHOLD:
+        alerts.append(f"[ALERT] Disk is HIGH: {disk}%")
+    return alerts
+
+def log_and_display():
+    cpu, memory, disk = get_stats()
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
-display_stats()
+    log_line = f"{timestamp} | CPU: {cpu}% | Memory: {memory}% | Disk: {disk}%"
+    
+    print("="*50)
+    print(log_line)
+    
+    alerts = check_alerts(cpu, memory, disk)
+    for alert in alerts:
+        print(alert)
+    
+    with open(LOG_FILE, "a", encoding="utf-8") as f:
+        f.write(log_line + "\n")
+        for alert in alerts:
+            f.write(alert + "\n")
+
+print("Monitoring started... Press Ctrl+C to stop")
+while True:
+    log_and_display()
+    time.sleep(60)

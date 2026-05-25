@@ -1,0 +1,15 @@
+2026-05-25 15:19:12 | CPU: 14.1% | Memory: 72.2% | Disk: 30.5%
+2026-05-25 15:21:05 | CPU: 12.3% | Memory: 73.5% | Disk: 30.5%
+2026-05-25 15:22:40 | CPU: 24.1% | Memory: 72.6% | Disk: 30.5%
+2026-05-25 15:25:56 | CPU: 11.9% | Memory: 72.4% | Disk: 30.5%
+ ALERT: Memory usage is HIGH → 72.4%
+2026-05-25 15:28:14 | CPU: 15.2% | Memory: 73.1% | Disk: 30.5%
+[ALERT] Memory is HIGH: 73.1%
+2026-05-25 15:29:03 | CPU: 11.9% | Memory: 73.2% | Disk: 30.5%
+[ALERT] Memory is HIGH: 73.2%
+2026-05-25 15:29:08 | CPU: 12.1% | Memory: 73.3% | Disk: 30.5%
+[ALERT] Memory is HIGH: 73.3%
+2026-05-25 15:30:04 | CPU: 6.1% | Memory: 72.6% | Disk: 30.5%
+[ALERT] Memory is HIGH: 72.6%
+2026-05-25 15:31:05 | CPU: 13.3% | Memory: 72.0% | Disk: 30.5%
+[ALERT] Memory is HIGH: 72.0%
